@@ -3,7 +3,7 @@ using Shouldly;
 using Wyrm.ModBusClient.GivEnergy.DependencyInjection;
 using Wyrm.ModBusClient.GivEnergy.Services;
 
-namespace Wyrm.ModBusClient.GivEnergy.IntegrationTests.DependencyInjection;
+namespace Wyrm.ModBusClient.GivEnergy.UnitTests.DependencyInjection;
 
 public class ServiceCollectionExtensionsTests
 {

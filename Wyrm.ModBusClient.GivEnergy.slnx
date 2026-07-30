@@ -4,6 +4,7 @@
   </Folder>
   <Folder Name="/Test Projects/">
     <Project Path="tests/Wyrm.ModBusClient.GivEnergy.IntegrationTests/Wyrm.ModBusClient.GivEnergy.IntegrationTests.csproj" Id="6210b704-8ae5-4ba4-8267-6d063ff5dbb9" />
+    <Project Path="tests/Wyrm.ModBusClient.GivEnergy.UnitTests/Wyrm.ModBusClient.GivEnergy.UnitTests.csproj" />
   </Folder>
   <Project Path="src/Wyrm.ModBusClient.GivEnergy/Wyrm.ModBusClient.GivEnergy.csproj" />
 </Solution>

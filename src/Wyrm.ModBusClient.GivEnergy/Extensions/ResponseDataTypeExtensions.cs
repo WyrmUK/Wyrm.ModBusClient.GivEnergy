@@ -28,7 +28,7 @@ internal static class ResponseDataTypeExtensions
             ResponseDataType.BatteryData2 or ResponseDataType.MeterData2 or ResponseDataType.LowVoltageBCUData2 or ResponseDataType.InverterProperties2 => 60,
             ResponseDataType.InverterProperties3 => 120,
             ResponseDataType.InverterProperties4 => 180,
-            ResponseDataType.InverterProperties5 => 240,
+            ResponseDataType.InverterProperties5 or ResponseDataType.InverterData5 => 240,
             ResponseDataType.InverterProperties6 => 300,
             ResponseDataType.InverterProperties9 => 480,
             ResponseDataType.InverterProperties10 => 540,

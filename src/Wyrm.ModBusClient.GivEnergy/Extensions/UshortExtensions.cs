@@ -7,11 +7,11 @@ internal static class UshortExtensions
 {
     extension(ushort value)
     {
-        public uint ConvertUint(ushort lowValue) => ((uint)value << 8) + lowValue;
-        public decimal ConvertSigned() => value < 0x8000 ? value : value - 0x10_000;
+        public uint ConvertUint(ushort lowValue) => ((uint)value << 16) + lowValue;
+        public decimal ConvertSigned() => value < 0x8000 ? value : value - 0x10000;
         public decimal ConvertDeci() => value / 10M;
-        public decimal ConvertDeci(ushort lowValue) => (((long)value << 16) + lowValue) / 10M;
-        public decimal ConvertDeciSigned() => ((short)value) / 10M;
+        public decimal ConvertDeci(ushort lowValue) => value.ConvertUint(lowValue) / 10M;
+        public decimal ConvertDeciSigned() => value.ConvertSigned() / 10M;
         public decimal ConvertCenti() => value / 100M;
         public decimal ConvertCenti(ushort lowValue) => (((long)value << 16) + lowValue) / 100M;
         public decimal ConvertCentiSigned() => value.ConvertSigned() / 100M;
@@ -72,7 +72,7 @@ internal static class UshortExtensions
             return (start, end);
         }
         public DateTime ConvertDateTime(ushort month, ushort day, ushort hour, ushort minute, ushort second) =>
-            new DateTime(2000 + value, month, day, hour, minute, second);
+            new(2000 + value, month, day, hour, minute, second);
         public InverterFaultCode[] ConvertInverterFaultCodes(ushort lowValue)
         {
             var codes = new List<InverterFaultCode>();
@@ -83,7 +83,7 @@ internal static class UshortExtensions
                 if ((bits & bitField) == 0) continue;
                 codes.Add(code);
             }
-            return codes.ToArray();
+            return [.. codes];
         }
     }
 }

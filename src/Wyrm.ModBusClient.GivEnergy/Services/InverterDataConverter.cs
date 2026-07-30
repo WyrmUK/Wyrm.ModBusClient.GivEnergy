@@ -712,7 +712,7 @@ internal sealed class InverterDataConverter : IInverterDataConverter
                 UnitIdentifier = response.UnitIdentifier,
                 FunctionNumber = response.FunctionNumber,
                 StartAddress = registerAddress,
-                RegisterValues = response.UshortData.ToList()
+                RegisterValues = [.. response.UshortData]
             }
         };
     }

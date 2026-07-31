@@ -17,7 +17,7 @@ internal static class UshortExtensions
         public decimal ConvertCentiSigned() => value.ConvertSigned() / 100M;
         public decimal ConvertMilli() => value / 1000M;
         public decimal ConvertMilli(ushort lowValue) => (((long)value << 16) + lowValue) / 1000M;
-        public ChargeStatus ChargeStatus() => value switch
+        public ChargeStatus ConvertChargeStatus() => value switch
         {
             (ushort)Constants.ChargeStatus.Idle => Constants.ChargeStatus.Idle,
             (ushort)Constants.ChargeStatus.Charging => Constants.ChargeStatus.Charging,
@@ -25,7 +25,7 @@ internal static class UshortExtensions
             (ushort)Constants.ChargeStatus.Discharging => Constants.ChargeStatus.Discharging,
             _ => Constants.ChargeStatus.Unknown
         };
-        public decimal PowerFactor() => (value / 10_000M) - 1;
+        public decimal ConvertPowerFactor() => (value / 10_000M) - 1;
         public string ConvertHex() => $"{value:X4}";
         public string ConvertHex(ushort lowValue) => $"{(((uint)value) << 16) + lowValue:X4}";
         public TimeSpan ConvertTimeSpanHours(ushort lowValue) => TimeSpan.FromHours(((long)value << 16) + lowValue);

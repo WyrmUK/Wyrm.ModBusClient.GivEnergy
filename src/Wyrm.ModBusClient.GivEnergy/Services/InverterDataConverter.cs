@@ -114,7 +114,7 @@ internal sealed class InverterDataConverter : IInverterDataConverter
                 EnableReversed418Meter = data[49] != 0,
                 ActivePowerRate = data[50],
                 ReactivePowerRate = data[51],
-                PowerFactor = data[52].PowerFactor(),
+                PowerFactor = data[52].ConvertPowerFactor(),
                 EnableInverterAutoRestart = (data[53] >> 8) != 0,
                 EnableInverter = (data[53] & 0xFF) != 0,
                 BatteryType = (BatteryType)data[54],
@@ -494,9 +494,9 @@ internal sealed class InverterDataConverter : IInverterDataConverter
                 PVGeneratingCapacityTotal = data[11].ConvertDeci(data[12]),
                 GridFrequency = data[13].ConvertCenti(),
                 ChargeStatus = data[14],
-                ChargeStatusType = data[14].ChargeStatus(),
+                ChargeStatusType = data[14].ConvertChargeStatus(),
                 HighbrighBusVoltage = data[15].ConvertDeci(),
-                InverterOutputPowerFactorNow = data[16].PowerFactor(),
+                InverterOutputPowerFactorNow = data[16].ConvertPowerFactor(),
                 PV1EnergyToday = data[17].ConvertDeci(),
                 PV1InputPower = data[18],
                 PV2EnergyToday = data[19].ConvertDeci(),
@@ -573,7 +573,7 @@ internal sealed class InverterDataConverter : IInverterDataConverter
                     ActivePower = data[8].ConvertSigned(),
                     ReactivePower = data[12].ConvertSigned(),
                     ApparentPower = data[16].ConvertDeci(),
-                    PowerFactor = data[20].PowerFactor()
+                    PowerFactor = data[20].ConvertPowerFactor()
                 },
                 Phase2 = new MeterPhaseData
                 {
@@ -582,7 +582,7 @@ internal sealed class InverterDataConverter : IInverterDataConverter
                     ActivePower = data[9].ConvertSigned(),
                     ReactivePower = data[13].ConvertSigned(),
                     ApparentPower = data[17].ConvertDeci(),
-                    PowerFactor = data[21].PowerFactor()
+                    PowerFactor = data[21].ConvertPowerFactor()
                 },
                 Phase3 = new MeterPhaseData
                 {
@@ -591,14 +591,14 @@ internal sealed class InverterDataConverter : IInverterDataConverter
                     ActivePower = data[10].ConvertSigned(),
                     ReactivePower = data[14].ConvertSigned(),
                     ApparentPower = data[18].ConvertDeci(),
-                    PowerFactor = data[22].PowerFactor()
+                    PowerFactor = data[22].ConvertPowerFactor()
                 },
                 LineCurrent = data[6].ConvertCenti(),
                 TotalCurrent = data[7].ConvertCenti(),
                 ActiveTotalPower = data[11].ConvertSigned(),
                 ReactiveTotalPower = data[15].ConvertSigned(),
                 ApparentTotalPower = data[19].ConvertDeci(),
-                TotalPowerFactor = data[23].PowerFactor(),
+                TotalPowerFactor = data[23].ConvertPowerFactor(),
                 Frequency = data[24].ConvertCenti(),
                 ActiveImportEnergy = data[25].ConvertDeci(),
                 ReactiveImportEnergy = data[26].ConvertDeci(),

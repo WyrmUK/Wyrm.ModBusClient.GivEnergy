@@ -34,7 +34,7 @@ public record InverterProperties4 : IResponseData
     /// <summary>
     /// Gets the inverter fault codes (decoded InverterErrors).
     /// </summary>
-    public InverterFaultCode[] InverterFaultCodes { get; init; } = [];
+    public ICollection<InverterFaultCode> InverterFaultCodes { get; init; } = [];
     /// <summary>
     /// Gets the registers 226 to 240.
     /// </summary>

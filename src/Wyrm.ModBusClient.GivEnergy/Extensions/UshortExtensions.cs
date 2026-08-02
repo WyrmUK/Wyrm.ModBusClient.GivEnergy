@@ -96,7 +96,7 @@ internal static class UshortExtensions
                 return DateTime.MinValue;
             }
         }
-        public InverterFaultCode[] ConvertInverterFaultCodes(ushort lowValue)
+        public ICollection<InverterFaultCode> ConvertInverterFaultCodes(ushort lowValue)
         {
             var codes = new List<InverterFaultCode>();
             var bits = value.ConvertUint(lowValue);
@@ -106,7 +106,7 @@ internal static class UshortExtensions
                 if ((bits & bitField) == 0) continue;
                 codes.Add(code);
             }
-            return [.. codes];
+            return codes;
         }
     }
 }

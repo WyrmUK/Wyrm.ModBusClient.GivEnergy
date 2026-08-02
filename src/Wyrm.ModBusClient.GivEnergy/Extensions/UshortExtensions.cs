@@ -27,8 +27,14 @@ internal static class UshortExtensions
         };
         public decimal ConvertPowerFactor() => (value / 10_000M) - 1;
         public string ConvertHex() => $"{value:X4}";
-        public string ConvertHex(ushort lowValue) => $"{(((uint)value) << 16) + lowValue:X4}";
-        public TimeSpan ConvertTimeSpanHours(ushort lowValue) => TimeSpan.FromHours(((long)value << 16) + lowValue);
+        public string ConvertHex(ushort lowValue) => $"{(((uint)value) << 16) + lowValue:X8}";
+        public TimeSpan ConvertTimeSpanHours(ushort lowValue)
+        {
+            var hours = value.ConvertUint(lowValue);
+            return hours > TimeSpan.MaxValue.TotalHours
+                ? TimeSpan.MaxValue
+                : TimeSpan.FromHours(hours);
+        }
         public ICollection<ChargerWarningCode> ConvertChargerWarningCode()
         {
             if (value == 0) return [];
@@ -51,7 +57,7 @@ internal static class UshortExtensions
                 str.Append((char)(val >> 8));
                 str.Append((char)(val & 0xFF));
             }
-            return str.ToString();
+            return str.ToString().Trim('\0');
         }
         public InverterModel ConvertModel()
         {

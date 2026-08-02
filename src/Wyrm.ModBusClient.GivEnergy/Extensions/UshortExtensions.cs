@@ -74,9 +74,16 @@ internal static class UshortExtensions
         public (TimeOnly Start, TimeOnly End)? ConvertTimeSlot(ushort lowValue)
         {
             if ((value == 0 && lowValue == 0) || (value == 60 && lowValue == 60)) return null;
-            var start = new TimeOnly(value / 100, value % 100);
-            var end = new TimeOnly(lowValue / 100, lowValue % 100);
-            return (start, end);
+            try
+            {
+                var start = new TimeOnly(value / 100, value % 100);
+                var end = new TimeOnly(lowValue / 100, lowValue % 100);
+                return (start, end);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return (TimeOnly.MaxValue, TimeOnly.MaxValue);
+            }
         }
         public DateTime ConvertDateTime(ushort month, ushort day, ushort hour, ushort minute, ushort second) =>
             new(2000 + value, month, day, hour, minute, second);

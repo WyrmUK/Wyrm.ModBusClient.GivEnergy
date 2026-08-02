@@ -64,6 +64,7 @@ internal static class UshortExtensions
             var model = InverterModel.Unknown;
             foreach (var type in Enum.GetValues<InverterModel>())
             {
+                if ((value & 0xF000) != ((ushort)type & 0xF000)) continue;
                 var compare = value & (ushort)type;
                 if (compare == 0 || compare != (ushort)type) continue;
                 model = type;

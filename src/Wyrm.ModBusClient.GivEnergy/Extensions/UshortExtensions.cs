@@ -85,8 +85,17 @@ internal static class UshortExtensions
                 return (TimeOnly.MaxValue, TimeOnly.MaxValue);
             }
         }
-        public DateTime ConvertDateTime(ushort month, ushort day, ushort hour, ushort minute, ushort second) =>
-            new(2000 + value, month, day, hour, minute, second);
+        public DateTime ConvertDateTime(ushort month, ushort day, ushort hour, ushort minute, ushort second)
+        {
+            try
+            {
+                return new DateTime(2000 + value, month, day, hour, minute, second);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return DateTime.MinValue;
+            }
+        }
         public InverterFaultCode[] ConvertInverterFaultCodes(ushort lowValue)
         {
             var codes = new List<InverterFaultCode>();

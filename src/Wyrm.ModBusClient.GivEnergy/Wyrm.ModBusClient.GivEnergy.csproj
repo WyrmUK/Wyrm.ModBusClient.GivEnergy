@@ -30,11 +30,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="GitVersion.MsBuild" Version="6.8.2">
+    <PackageReference Include="GitVersion.MsBuild">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Wyrm.ModBusClient" Version="1.6.0" />
+    <PackageReference Include="Wyrm.ModBusClient" />
+  </ItemGroup>
+
+  <ItemGroup>
     <InternalsVisibleTo Include="$(MSBuildProjectName).IntegrationTests" />
     <InternalsVisibleTo Include="$(MSBuildProjectName).UnitTests" />
     <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />

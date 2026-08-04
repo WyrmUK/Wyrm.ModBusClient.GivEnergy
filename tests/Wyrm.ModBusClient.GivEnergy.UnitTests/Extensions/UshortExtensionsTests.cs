@@ -424,4 +424,13 @@ public class UshortExtensionsTests
         var result = value.ConvertInverterFaultCodes(lowValue);
         result.ShouldBeEquivalentTo(expected);
     }
+
+    [Fact]
+    public void FirmwareVersion_Should_Return_Correct_Value()
+    {
+        const ushort dspFirmwareVersion = 0x0020;
+        const ushort armFirmwareVersion = 0x0132;
+        var result = dspFirmwareVersion.FirmwareVersion(armFirmwareVersion);
+        result.ShouldBe($"D0.{dspFirmwareVersion}-A0.{armFirmwareVersion}");
+    }
 }

@@ -1,4 +1,5 @@
 ﻿using Wyrm.ModBusClient.GivEnergy.Constants;
+using Wyrm.ModBusClient.GivEnergy.Extensions;
 
 namespace Wyrm.ModBusClient.GivEnergy.Responses;
 
@@ -70,7 +71,7 @@ public record InverterProperties1 : IResponseData
     /// <summary>
     /// Gets the firmware version string.
     /// </summary>
-    public string FirmwareVersion => $"D0.{DSPFirmwareVersion}-A0.{ARMFirmwareVersion}";
+    public string FirmwareVersion => DSPFirmwareVersion.FirmwareVersion(ARMFirmwareVersion);
     /// <summary>
     /// Gets the USB device type inserted.
     /// </summary>

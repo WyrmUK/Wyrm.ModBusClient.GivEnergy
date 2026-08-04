@@ -108,5 +108,7 @@ internal static class UshortExtensions
             }
             return codes;
         }
+        public string FirmwareVersion(ushort armFirmwareVersion) =>
+            $"D0.{value}-A0.{armFirmwareVersion}";
     }
 }

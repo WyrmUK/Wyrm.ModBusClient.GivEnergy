@@ -28,6 +28,7 @@ public class GivEnergyClientTests
     [Fact]
     public async Task ConnectAsync_Should_Connect()
     {
+        // TODO: Make this a test of sending and receiving.
         var accept = Task.Run(() => _inverter.AcceptAsync(TestContext.Current.CancellationToken));
         await _givEnergyClient.ConnectAsync(TestEndPoint, TestContext.Current.CancellationToken);
         await accept;

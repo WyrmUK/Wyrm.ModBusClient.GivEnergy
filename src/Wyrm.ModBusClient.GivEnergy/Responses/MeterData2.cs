@@ -8,10 +8,6 @@ namespace Wyrm.ModBusClient.GivEnergy.Responses;
 public record MeterData2 : IResponseData
 {
     /// <summary>
-    /// Gets the meter device number.
-    /// </summary>
-    public int Device { get; init; }
-    /// <summary>
     /// Gets the phase 1 data.
     /// </summary>
     public MeterPhaseData Phase1 { get; init; } = new();

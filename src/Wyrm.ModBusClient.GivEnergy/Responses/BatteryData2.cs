@@ -6,10 +6,6 @@
 public record BatteryData2 : IResponseData
 {
     /// <summary>
-    /// Gets the battery device number.
-    /// </summary>
-    public int Device { get; init; }
-    /// <summary>
     /// Gets the individual cell voltages (V).
     /// </summary>
     public decimal[] CellVoltages { get; init; } = [];

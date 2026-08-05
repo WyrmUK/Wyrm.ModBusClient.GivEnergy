@@ -60,7 +60,7 @@ internal sealed class InverterDataConverter : IInverterDataConverter
                 PopulateLowVoltageBCUData2(serialNo, wifiHost, [.. response.UshortData]),
 
             >= BatteryMin and <= BatteryMax when response.FunctionNumber is InputRegisters && registerAddress == 60 =>
-                PopulateBattery2(serialNo, wifiHost, response.UnitIdentifier - BatteryMin + 1, [.. response.UshortData]),
+                PopulateBattery2(serialNo, wifiHost, (byte)(response.UnitIdentifier - BatteryMin + 1), [.. response.UshortData]),
 
             _ => PopulateUndecodedData(serialNo, wifiHost, registerAddress, response)
         };
@@ -556,16 +556,16 @@ internal sealed class InverterDataConverter : IInverterDataConverter
         };
     }
 
-    private static GivEnergyResponse PopulateMeterData2(string serialNo, string wifiHost, int meterNo, IList<ushort> data)
+    private static GivEnergyResponse PopulateMeterData2(string serialNo, string wifiHost, byte meterNo, IList<ushort> data)
     {
         return new GivEnergyResponse
         {
             SerialNumber = serialNo,
             WifiAdapter = wifiHost,
+            DeviceNumber = meterNo,
             ResponseDataType = Responses.Constants.ResponseDataType.MeterData2,
             ResponseData = new MeterData2
             {
-                Device = meterNo,
                 Phase1 = new MeterPhaseData
                 {
                     Voltage = data[0].ConvertDeci(),
@@ -625,16 +625,16 @@ internal sealed class InverterDataConverter : IInverterDataConverter
         };
     }
 
-    private static GivEnergyResponse PopulateBattery2(string serialNo, string wifiHost, int batteryNo, IList<ushort> data)
+    private static GivEnergyResponse PopulateBattery2(string serialNo, string wifiHost, byte batteryNo, IList<ushort> data)
     {
         return new GivEnergyResponse
         {
             SerialNumber = serialNo,
             WifiAdapter = wifiHost,
+            DeviceNumber = batteryNo,
             ResponseDataType = Responses.Constants.ResponseDataType.BatteryData2,
             ResponseData = new BatteryData2
             {
-                Device = batteryNo,
                 CellVoltages =
                 [
                     data[0].ConvertMilli(),

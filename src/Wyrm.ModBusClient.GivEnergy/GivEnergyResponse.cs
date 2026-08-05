@@ -17,6 +17,11 @@ public record GivEnergyResponse
     /// </summary>
     public required string WifiAdapter { get; init; }
     /// <summary>
+    /// Gets the device number of the set of devices the data could be for (1 is the first device).
+    /// Usually 1, except for Meter and Batttery data.
+    /// </summary>
+    public byte DeviceNumber { get; init; } = 1;
+    /// <summary>
     /// Gets the response data type returned.
     /// Use this to cast the ResponseData to the correct type.
     /// </summary>

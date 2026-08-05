@@ -706,6 +706,7 @@ internal sealed class InverterDataConverter : IInverterDataConverter
         {
             SerialNumber = serialNo,
             WifiAdapter = wifiHost,
+            DeviceNumber = 0,
             ResponseDataType = Responses.Constants.ResponseDataType.RegisterData,
             ResponseData = new RegisterData
             {

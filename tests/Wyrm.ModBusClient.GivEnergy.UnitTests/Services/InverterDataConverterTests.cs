@@ -715,6 +715,70 @@ public class InverterDataConverterTests
         }
     };
 
+    private static GivEnergyResponse MeterData2UniqueResponse(byte deviceNumber) => new()
+    {
+        SerialNumber = SerialNo,
+        WifiAdapter = WifiHost,
+        DeviceNumber = deviceNumber,
+        ResponseDataType = ResponseDataType.MeterData2,
+        ResponseData = new MeterData2
+        {
+            Phase1 = new MeterPhaseData
+            {
+                Voltage = 819.2M,
+                Current = 81.95M,
+                ActivePower = 8200M,
+                ReactivePower = 8204M,
+                ApparentPower = 820.8M,
+                PowerFactor = -0.1788M
+            },
+            Phase2 = new MeterPhaseData
+            {
+                Voltage = 819.3M,
+                Current = 81.96M,
+                ActivePower = 8201M,
+                ReactivePower = 8205M,
+                ApparentPower = 820.9M,
+                PowerFactor = -0.1787M
+            },
+            Phase3 = new MeterPhaseData
+            {
+                Voltage = 819.4M,
+                Current = 81.97M,
+                ActivePower = 8202M,
+                ReactivePower = 8206M,
+                ApparentPower = 821.0M,
+                PowerFactor = -0.1786M
+            },
+            LineCurrent = 81.98M,
+            TotalCurrent = 81.99M,
+            ActiveTotalPower = 8203M,
+            ReactiveTotalPower = 8207M,
+            ApparentTotalPower = 821.1M,
+            TotalPowerFactor = -0.1785M,
+            Frequency = 82.16M,
+            ActiveImportEnergy = 821.7M,
+            ReactiveImportEnergy = 821.8M,
+            ActiveExportEnergy = 821.9M,
+            ReactiveExportEnergy = 822.0M
+        }
+    };
+
+    private static readonly GivEnergyResponse LowVoltageBCUData2UniqueResponse = new()
+    {
+        SerialNumber = SerialNo,
+        WifiAdapter = WifiHost,
+        DeviceNumber = 1,
+        ResponseDataType = ResponseDataType.LowVoltageBCUData2,
+        ResponseData = new LowVoltageBCUData2
+        {
+            BMSStatus1 = 8192,
+            BMSStatus2 = 8193,
+            RequestChargeCurrent = 8194,
+            RequestDischargeCurrent = 8195
+        }
+    };
+
     public static TheoryData<byte, byte, ushort[], int, GivEnergyResponse> ParseTests()
     {
         var data = new TheoryData<byte, byte, ushort[], int, GivEnergyResponse>
@@ -743,8 +807,10 @@ public class InverterDataConverterTests
         for (byte meterNum = 0; meterNum < InverterDataConverter.MeterMax - InverterDataConverter.MeterMin; ++meterNum)
         {
             data.Add((byte)(InverterDataConverter.MeterMin + meterNum), InputRegisters, ZeroData, 60, MeterData2ZeroResponse((byte)(meterNum + 1)));
+            data.Add((byte)(InverterDataConverter.MeterMin + meterNum), InputRegisters, UniqueData, 60, MeterData2UniqueResponse((byte)(meterNum + 1)));
         }
         data.Add(InverterDataConverter.LowVoltageBCUId, InputRegisters, ZeroData, 60, LowVoltageBCUData2ZeroResponse);
+        data.Add(InverterDataConverter.LowVoltageBCUId, InputRegisters, UniqueData, 60, LowVoltageBCUData2UniqueResponse);
         for (byte batteryNum = 0; batteryNum < InverterDataConverter.BatteryMax - InverterDataConverter.BatteryMin; ++batteryNum)
         {
             data.Add((byte)(InverterDataConverter.BatteryMin + batteryNum), InputRegisters, ZeroData, 60, BatteryData2ZeroResponse((byte)(batteryNum + 1)));

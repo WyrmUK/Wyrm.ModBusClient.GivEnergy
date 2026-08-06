@@ -19,11 +19,11 @@ internal static class UshortExtensions
         public decimal ConvertMilli(ushort lowValue) => (((long)value << 16) + lowValue) / 1000M;
         public ChargeStatus ConvertChargeStatus() => value switch
         {
-            (ushort)Constants.ChargeStatus.Idle => Constants.ChargeStatus.Idle,
-            (ushort)Constants.ChargeStatus.Charging => Constants.ChargeStatus.Charging,
-            (ushort)Constants.ChargeStatus.Finishing => Constants.ChargeStatus.Finishing,
-            (ushort)Constants.ChargeStatus.Discharging => Constants.ChargeStatus.Discharging,
-            _ => Constants.ChargeStatus.Unknown
+            (ushort)ChargeStatus.Idle => ChargeStatus.Idle,
+            (ushort)ChargeStatus.Charging => ChargeStatus.Charging,
+            (ushort)ChargeStatus.Finishing => ChargeStatus.Finishing,
+            (ushort)ChargeStatus.Discharging => ChargeStatus.Discharging,
+            _ => ChargeStatus.Unknown
         };
         public decimal ConvertPowerFactor() => (value / 10_000M) - 1;
         public string ConvertHex() => $"{value:X4}";

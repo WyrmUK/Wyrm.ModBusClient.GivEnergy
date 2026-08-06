@@ -635,6 +635,86 @@ public class InverterDataConverterTests
         }
     };
 
+    private static readonly GivEnergyResponse InverterData1UniqueResponse = new()
+    {
+        SerialNumber = SerialNo,
+        WifiAdapter = WifiHost,
+        DeviceNumber = 1,
+        ResponseDataType = ResponseDataType.InverterData1,
+        ResponseData = new InverterData1
+        {
+            Status = (GivEnergyStatus)8192,
+            PV1Voltage = 819.3M,
+            PV2Voltage = 819.4M,
+            PBusVoltage = 819.5M,
+            NBusVoltage = 819.6M,
+            GridVoltage = 819.7M,
+            BatteryThroughput = 53_727_232.7M,
+            PV1InputCurrent = 82.00M,
+            PV2InputCurrent = 82.01M,
+            GridOutputCurrent = 82.02M,
+            PVGeneratingCapacityTotal = 53_760_001.2M,
+            GridFrequency = 82.05M,
+            ChargeStatus = 8206,
+            ChargeStatusType = ChargeStatus.Unknown,
+            HighbrighBusVoltage = 820.7M,
+            InverterOutputPowerFactorNow = -0.1792M,
+            PV1EnergyToday = 820.9M,
+            PV1InputPower = 8210,
+            PV2EnergyToday = 821.1M,
+            PV2InputPower = 8212,
+            GridOutEnergyTotal = 53_825_538.2M,
+            PVSolarDiverterEnergy = 821.5M,
+            GridPowerPH1 = 8216M,
+            GridOutEnergyToday = 821.7M,
+            GridInEnergyToday = 821.8M,
+            InverterInEnergyTotal = 53_864_860.4M,
+            DischargeEnergyYear = 822.1M,
+            GridPowerAtMeter = 8222M,
+            BackupPower = 8223,
+            GridInEnergyTotal = 53_897_628.9M,
+            Reg0034 = 8226,
+            ACChargeEnergyToday = 822.7M,
+            BatteryChargeEnergyTodayAlt1 = 822.8M,
+            BatteryDischargeEnergyTodayAlt1 = 822.9M,
+            Countdown = 8230,
+            InverterFaultCode = "2027",
+            InverterWarningCode = "2028",
+            InverterHeatsinkTemperature = 823.3M,
+            LoadPowerDemand = 8234,
+            GridPowerApparent = 8235,
+            PVGenerationEnergyToday = 823.6M,
+            PVGenerationEnergyTotal = 53_982_827.0M,
+            WorkTimeTotal = TimeSpan.MaxValue,
+            SystemMode = 8241,
+            BatteryVoltage = 82.42M,
+            BatteryCurrent = 82.43M,
+            BatteryPower = 8244M,
+            AC1OutputVoltage = 824.5M,
+            AC1OutputFrequency = 82.46M,
+            ChargerTemperature = 824.7M,
+            BatteryTemperature = 824.8M,
+            ChargerWarningCode = 8249,
+            ChargerWarningMessages = [ChargerWarningCode.BMSUnderTemperatureCharge, ChargerWarningCode.BMSOverTemperatureDischarge, ChargerWarningCode.BMSUnderVoltage, ChargerWarningCode.BMSOverVoltage, ChargerWarningCode.BatteryVoltageLow],
+            GridPortCurrent = 82.50M,
+            BatteryPercentage = 8251
+        }
+    };
+
+    private static readonly GivEnergyResponse InverterData5UniqueResponse = new()
+    {
+        SerialNumber = SerialNo,
+        WifiAdapter = WifiHost,
+        DeviceNumber = 1,
+        ResponseDataType = ResponseDataType.InverterData5,
+        ResponseData = new InverterData5
+        {
+            Voltage5 = 819.2M,
+            Current5 = 81.98M,
+            CombinedGenerationPower = 53_733_786.4M
+        }
+    };
+
     public static TheoryData<byte, byte, ushort[], int, GivEnergyResponse> ParseTests()
     {
         var data = new TheoryData<byte, byte, ushort[], int, GivEnergyResponse>
@@ -656,7 +736,9 @@ public class InverterDataConverterTests
             { InverterDataConverter.InverterId, HoldingRegisters, ZeroData, 540, InverterProperties10ZeroResponse },
             { InverterDataConverter.InverterId, HoldingRegisters, ForInverterProperties10(UniqueData), 540, InverterProperties10UniqueResponse },
             { InverterDataConverter.InverterId, InputRegisters, ZeroData, 0, InverterData1ZeroResponse },
-            { InverterDataConverter.InverterId, InputRegisters, ZeroData, 240, InverterData5ZeroResponse }
+            { InverterDataConverter.InverterId, InputRegisters, UniqueData, 0, InverterData1UniqueResponse },
+            { InverterDataConverter.InverterId, InputRegisters, ZeroData, 240, InverterData5ZeroResponse },
+            { InverterDataConverter.InverterId, InputRegisters, UniqueData, 240, InverterData5UniqueResponse }
         };
         for (byte meterNum = 0; meterNum < InverterDataConverter.MeterMax - InverterDataConverter.MeterMin; ++meterNum)
         {

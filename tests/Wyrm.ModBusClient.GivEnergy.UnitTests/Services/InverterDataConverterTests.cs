@@ -192,7 +192,10 @@ public class InverterDataConverterTests
     private static readonly ushort[] UniqueData = [.. Enumerable.Range(0x2000, 60).Select(x => (ushort)x)];
 
     private static ushort MakeGoodTimeOnly(ushort data) =>
-        (ushort)((data / 100) % 24 * 100 + data % 60);
+        (ushort)(data / 100 % 24 * 100 + data % 60);
+
+    private static ushort MakeNegative(ushort data) =>
+        (ushort)(data + 0xD000);
 
     private static ushort[] ForInverterProperties1(ushort[] uniqueData)
     {
@@ -635,6 +638,16 @@ public class InverterDataConverterTests
         }
     };
 
+    private static ushort[] ForInverterData1(ushort[] uniqueData)
+    {
+        ushort[] data = [.. uniqueData];
+        foreach (var index in new int[] { 24, 30, 41, 51, 52, 55, 56 })
+        {
+            data[index] = MakeNegative(data[index]);
+        }
+        return data;
+    }
+
     private static readonly GivEnergyResponse InverterData1UniqueResponse = new()
     {
         SerialNumber = SerialNo,
@@ -665,12 +678,12 @@ public class InverterDataConverterTests
             PV2InputPower = 8212,
             GridOutEnergyTotal = 53_825_538.2M,
             PVSolarDiverterEnergy = 821.5M,
-            GridPowerPH1 = 8216M,
+            GridPowerPH1 = -4072M,
             GridOutEnergyToday = 821.7M,
             GridInEnergyToday = 821.8M,
             InverterInEnergyTotal = 53_864_860.4M,
             DischargeEnergyYear = 822.1M,
-            GridPowerAtMeter = 8222M,
+            GridPowerAtMeter = -4066M,
             BackupPower = 8223,
             GridInEnergyTotal = 53_897_628.9M,
             Reg0034 = 8226,
@@ -680,7 +693,7 @@ public class InverterDataConverterTests
             Countdown = 8230,
             InverterFaultCode = "2027",
             InverterWarningCode = "2028",
-            InverterHeatsinkTemperature = 823.3M,
+            InverterHeatsinkTemperature = -405.5M,
             LoadPowerDemand = 8234,
             GridPowerApparent = 8235,
             PVGenerationEnergyToday = 823.6M,
@@ -688,12 +701,12 @@ public class InverterDataConverterTests
             WorkTimeTotal = TimeSpan.MaxValue,
             SystemMode = 8241,
             BatteryVoltage = 82.42M,
-            BatteryCurrent = 82.43M,
-            BatteryPower = 8244M,
+            BatteryCurrent = -40.45M,
+            BatteryPower = -4044M,
             AC1OutputVoltage = 824.5M,
             AC1OutputFrequency = 82.46M,
-            ChargerTemperature = 824.7M,
-            BatteryTemperature = 824.8M,
+            ChargerTemperature = -404.1M,
+            BatteryTemperature = -404.0M,
             ChargerWarningCode = 8249,
             ChargerWarningMessages = [ChargerWarningCode.BMSUnderTemperatureCharge, ChargerWarningCode.BMSOverTemperatureDischarge, ChargerWarningCode.BMSUnderVoltage, ChargerWarningCode.BMSOverVoltage, ChargerWarningCode.BatteryVoltageLow],
             GridPortCurrent = 82.50M,
@@ -715,6 +728,16 @@ public class InverterDataConverterTests
         }
     };
 
+    private static ushort[] ForMeterData2(ushort[] uniqueData)
+    {
+        ushort[] data = [.. uniqueData];
+        foreach (var index in new int[] { 8, 12, 9, 13, 10, 14, 11, 15 })
+        {
+            data[index] = MakeNegative(data[index]);
+        }
+        return data;
+    }
+
     private static GivEnergyResponse MeterData2UniqueResponse(byte deviceNumber) => new()
     {
         SerialNumber = SerialNo,
@@ -727,8 +750,8 @@ public class InverterDataConverterTests
             {
                 Voltage = 819.2M,
                 Current = 81.95M,
-                ActivePower = 8200M,
-                ReactivePower = 8204M,
+                ActivePower = -4088M,
+                ReactivePower = -4084M,
                 ApparentPower = 820.8M,
                 PowerFactor = -0.1788M
             },
@@ -736,8 +759,8 @@ public class InverterDataConverterTests
             {
                 Voltage = 819.3M,
                 Current = 81.96M,
-                ActivePower = 8201M,
-                ReactivePower = 8205M,
+                ActivePower = -4087M,
+                ReactivePower = -4083M,
                 ApparentPower = 820.9M,
                 PowerFactor = -0.1787M
             },
@@ -745,15 +768,15 @@ public class InverterDataConverterTests
             {
                 Voltage = 819.4M,
                 Current = 81.97M,
-                ActivePower = 8202M,
-                ReactivePower = 8206M,
+                ActivePower = -4086M,
+                ReactivePower = -4082M,
                 ApparentPower = 821.0M,
                 PowerFactor = -0.1786M
             },
             LineCurrent = 81.98M,
             TotalCurrent = 81.99M,
-            ActiveTotalPower = 8203M,
-            ReactiveTotalPower = 8207M,
+            ActiveTotalPower = -4085M,
+            ReactiveTotalPower = -4081M,
             ApparentTotalPower = 821.1M,
             TotalPowerFactor = -0.1785M,
             Frequency = 82.16M,
@@ -779,6 +802,73 @@ public class InverterDataConverterTests
         }
     };
 
+    private static ushort[] ForBatteryData2(ushort[] uniqueData)
+    {
+        ushort[] data = [.. uniqueData];
+        foreach (var indexN in new int[] { 16, 17, 18, 19, 21, 35, 43, 44 })
+        {
+            data[indexN] = MakeNegative(data[indexN]);
+        }
+        var index = 50;
+        for (; index < 55; ++index)
+        {
+            data[index] = (ushort)(('A' << 8) + 'A' + index);
+            if (index < 14)
+            {
+                data[27 + index] = (ushort)index;
+            }
+        }
+        return data;
+    }
+
+    private static GivEnergyResponse BatteryData2UniqueResponse(byte deviceNumber) => new()
+    {
+        SerialNumber = SerialNo,
+        WifiAdapter = WifiHost,
+        DeviceNumber = deviceNumber,
+        ResponseDataType = ResponseDataType.BatteryData2,
+        ResponseData = new BatteryData2
+        {
+            CellVoltages = Enumerable.Range(0, 16).Select(x => (8192 + x) / 1000M).ToArray(),
+            CellsTemperature = Enumerable.Range(0, 4).Select(x => (-4080 + x) / 10M).ToArray(),
+            CellVoltageSum = 821.2M,
+            BMSMosfetTemperature = -407.5M,
+            OutVoltage = 538320.919M,
+            CalibratedCapacity = 5384519.93M,
+            DesignCapacity = 5385830.67M,
+            RemainingCapacity = 5387141.41M,
+            Status1 = 32,
+            Status2 = 30,
+            Status3 = 32,
+            Status4 = 31,
+            Status5 = 32,
+            Status6 = 32,
+            Status7 = 32,
+            Warning1 = 32,
+            Warning2 = 34,
+            Current = -40.61M,
+            NumberOfCycles = 8228,
+            NumberofCells = 8229,
+            BMSFirmwareVersion = 8230,
+            Reg160 = 8231,
+            StateOfCharge = 8232,
+            DesignCapacity2 = 5395661.22M,
+            MaximumTemperature = -405.3M,
+            MinimumTemperature = -405.2M,
+            DischargeTotalEnergy = 823.7M,
+            ChargeTotalEnergy = 823.8M,
+            ForceDischargeFlag = 8239,
+            Reg169 = 8240,
+            Reg170 = 8241,
+            SerialNumber = "AsAtAuAvAw",
+            UsbDevice = 8247,
+            Reg177 = 8248,
+            Reg178 = 8249,
+            Reg179 = 8250,
+            Reg180 = 8251
+        }
+    };
+
     public static TheoryData<byte, byte, ushort[], int, GivEnergyResponse> ParseTests()
     {
         var data = new TheoryData<byte, byte, ushort[], int, GivEnergyResponse>
@@ -800,20 +890,21 @@ public class InverterDataConverterTests
             { InverterDataConverter.InverterId, HoldingRegisters, ZeroData, 540, InverterProperties10ZeroResponse },
             { InverterDataConverter.InverterId, HoldingRegisters, ForInverterProperties10(UniqueData), 540, InverterProperties10UniqueResponse },
             { InverterDataConverter.InverterId, InputRegisters, ZeroData, 0, InverterData1ZeroResponse },
-            { InverterDataConverter.InverterId, InputRegisters, UniqueData, 0, InverterData1UniqueResponse },
+            { InverterDataConverter.InverterId, InputRegisters, ForInverterData1(UniqueData), 0, InverterData1UniqueResponse },
             { InverterDataConverter.InverterId, InputRegisters, ZeroData, 240, InverterData5ZeroResponse },
             { InverterDataConverter.InverterId, InputRegisters, UniqueData, 240, InverterData5UniqueResponse }
         };
         for (byte meterNum = 0; meterNum < InverterDataConverter.MeterMax - InverterDataConverter.MeterMin; ++meterNum)
         {
             data.Add((byte)(InverterDataConverter.MeterMin + meterNum), InputRegisters, ZeroData, 60, MeterData2ZeroResponse((byte)(meterNum + 1)));
-            data.Add((byte)(InverterDataConverter.MeterMin + meterNum), InputRegisters, UniqueData, 60, MeterData2UniqueResponse((byte)(meterNum + 1)));
+            data.Add((byte)(InverterDataConverter.MeterMin + meterNum), InputRegisters, ForMeterData2(UniqueData), 60, MeterData2UniqueResponse((byte)(meterNum + 1)));
         }
         data.Add(InverterDataConverter.LowVoltageBCUId, InputRegisters, ZeroData, 60, LowVoltageBCUData2ZeroResponse);
         data.Add(InverterDataConverter.LowVoltageBCUId, InputRegisters, UniqueData, 60, LowVoltageBCUData2UniqueResponse);
         for (byte batteryNum = 0; batteryNum < InverterDataConverter.BatteryMax - InverterDataConverter.BatteryMin; ++batteryNum)
         {
             data.Add((byte)(InverterDataConverter.BatteryMin + batteryNum), InputRegisters, ZeroData, 60, BatteryData2ZeroResponse((byte)(batteryNum + 1)));
+            data.Add((byte)(InverterDataConverter.BatteryMin + batteryNum), InputRegisters, ForBatteryData2(UniqueData), 60, BatteryData2UniqueResponse((byte)(batteryNum + 1)));
         }
         return data;
     }

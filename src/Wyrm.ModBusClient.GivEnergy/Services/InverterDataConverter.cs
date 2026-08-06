@@ -283,11 +283,11 @@ internal sealed class InverterDataConverter : IInverterDataConverter
                 Reg181To199 = [.. data.Take(19)],
                 EnableInverterParallelMode = data[19] != 0,
                 CommandBMDFlashUpdate = data[20] != 0,
-                Reg222 = data[21],
-                Reg223 = data[22],
+                Reg202 = data[21],
+                Reg203 = data[22],
                 InverterErrors = data[23].ConvertUint(data[24]),
                 InverterFaultCodes = data[23].ConvertInverterFaultCodes(data[24]),
-                Reg226To240 = [.. data.Skip(25)]
+                Reg206To240 = [.. data.Skip(25)]
             }
         };
     }
@@ -442,7 +442,7 @@ internal sealed class InverterDataConverter : IInverterDataConverter
                 HVMinDischargeVoltage = data[28].ConvertDeci(),
                 HVMaxChargeCurrent = data[29],
                 HVParallelCount = data[30],
-                Reg512To540 = [.. data.Skip(30)]
+                Reg512To540 = [.. data.Skip(31)]
             }
         };
     }
@@ -467,7 +467,7 @@ internal sealed class InverterDataConverter : IInverterDataConverter
                 SmartLoadSlot8 = data[28].ConvertTimeSlot(data[29]),
                 SmartLoadSlot9 = data[30].ConvertTimeSlot(data[31]),
                 SmartLoadSlot10 = data[32].ConvertTimeSlot(data[33]),
-                Reg575To600 = [.. data.Skip(33)]
+                Reg575To600 = [.. data.Skip(34)]
             }
         };
     }

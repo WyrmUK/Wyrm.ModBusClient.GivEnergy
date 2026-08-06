@@ -22,11 +22,11 @@ public record InverterProperties4 : IResponseData
     /// <summary>
     /// Unknown.
     /// </summary>
-    public ushort Reg222 { get; init; }
+    public ushort Reg202 { get; init; }
     /// <summary>
     /// Unknown.
     /// </summary>
-    public ushort Reg223 { get; init; }
+    public ushort Reg203 { get; init; }
     /// <summary>
     /// Gets the inverter errors.
     /// </summary>
@@ -38,5 +38,5 @@ public record InverterProperties4 : IResponseData
     /// <summary>
     /// Gets the registers 226 to 240.
     /// </summary>
-    public ushort[] Reg226To240 { get; init; } = [];
+    public ushort[] Reg206To240 { get; init; } = [];
 }

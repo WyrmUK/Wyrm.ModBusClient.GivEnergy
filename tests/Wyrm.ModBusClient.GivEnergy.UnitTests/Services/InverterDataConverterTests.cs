@@ -4,7 +4,6 @@ using Wyrm.ModBusClient.GivEnergy.Responses;
 using Wyrm.ModBusClient.GivEnergy.Responses.Constants;
 using Wyrm.ModBusClient.GivEnergy.Responses.Models;
 using Wyrm.ModBusClient.GivEnergy.Services;
-using Xunit.Sdk;
 
 namespace Wyrm.ModBusClient.GivEnergy.UnitTests.Services;
 
@@ -37,7 +36,7 @@ public class InverterDataConverterTests
 
     private static readonly ushort[] ZeroData = new ushort[60];
 
-    private static readonly GivEnergyResponseSerializable InverterProperties1ZeroResponse = new()
+    private static readonly GivEnergyResponse InverterProperties1ZeroResponse = new()
     {
         SerialNumber = SerialNo,
         WifiAdapter = WifiHost,
@@ -52,7 +51,7 @@ public class InverterDataConverterTests
         }
     };
 
-    private static readonly GivEnergyResponseSerializable InverterProperties2ZeroResponse = new()
+    private static readonly GivEnergyResponse InverterProperties2ZeroResponse = new()
     {
         SerialNumber = SerialNo,
         WifiAdapter = WifiHost,
@@ -61,7 +60,7 @@ public class InverterDataConverterTests
         ResponseData = new InverterProperties2()
     };
 
-    private static readonly GivEnergyResponseSerializable InverterProperties3ZeroResponse = new()
+    private static readonly GivEnergyResponse InverterProperties3ZeroResponse = new()
     {
         SerialNumber = SerialNo,
         WifiAdapter = WifiHost,
@@ -75,7 +74,7 @@ public class InverterDataConverterTests
         }
     };
 
-    private static readonly GivEnergyResponseSerializable InverterProperties4ZeroResponse = new()
+    private static readonly GivEnergyResponse InverterProperties4ZeroResponse = new()
     {
         SerialNumber = SerialNo,
         WifiAdapter = WifiHost,
@@ -88,7 +87,7 @@ public class InverterDataConverterTests
         }
     };
 
-    private static readonly GivEnergyResponseSerializable InverterProperties5ZeroResponse = new()
+    private static readonly GivEnergyResponse InverterProperties5ZeroResponse = new()
     {
         SerialNumber = SerialNo,
         WifiAdapter = WifiHost,
@@ -97,7 +96,7 @@ public class InverterDataConverterTests
         ResponseData = new InverterProperties5()
     };
 
-    private static readonly GivEnergyResponseSerializable InverterProperties6ZeroResponse = new()
+    private static readonly GivEnergyResponse InverterProperties6ZeroResponse = new()
     {
         SerialNumber = SerialNo,
         WifiAdapter = WifiHost,
@@ -106,7 +105,7 @@ public class InverterDataConverterTests
         ResponseData = new InverterProperties6()
     };
 
-    private static readonly GivEnergyResponseSerializable InverterProperties9ZeroResponse = new()
+    private static readonly GivEnergyResponse InverterProperties9ZeroResponse = new()
     {
         SerialNumber = SerialNo,
         WifiAdapter = WifiHost,
@@ -119,7 +118,7 @@ public class InverterDataConverterTests
         }
     };
 
-    private static readonly GivEnergyResponseSerializable InverterProperties10ZeroResponse = new()
+    private static readonly GivEnergyResponse InverterProperties10ZeroResponse = new()
     {
         SerialNumber = SerialNo,
         WifiAdapter = WifiHost,
@@ -132,7 +131,7 @@ public class InverterDataConverterTests
         }
     };
 
-    private static readonly GivEnergyResponseSerializable InverterData1ZeroResponse = new()
+    private static readonly GivEnergyResponse InverterData1ZeroResponse = new()
     {
         SerialNumber = SerialNo,
         WifiAdapter = WifiHost,
@@ -144,7 +143,7 @@ public class InverterDataConverterTests
         }
     };
 
-    private static readonly GivEnergyResponseSerializable InverterData5ZeroResponse = new()
+    private static readonly GivEnergyResponse InverterData5ZeroResponse = new()
     {
         SerialNumber = SerialNo,
         WifiAdapter = WifiHost,
@@ -153,7 +152,7 @@ public class InverterDataConverterTests
         ResponseData = new InverterData5()
     };
 
-    private static GivEnergyResponseSerializable MeterData2ZeroResponse(byte deviceNumber) => new()
+    private static GivEnergyResponse MeterData2ZeroResponse(byte deviceNumber) => new()
     {
         SerialNumber = SerialNo,
         WifiAdapter = WifiHost,
@@ -168,7 +167,7 @@ public class InverterDataConverterTests
         }
     };
 
-    private static readonly GivEnergyResponseSerializable LowVoltageBCUData2ZeroResponse = new()
+    private static readonly GivEnergyResponse LowVoltageBCUData2ZeroResponse = new()
     {
         SerialNumber = SerialNo,
         WifiAdapter = WifiHost,
@@ -177,7 +176,7 @@ public class InverterDataConverterTests
         ResponseData = new LowVoltageBCUData2()
     };
 
-    private static GivEnergyResponseSerializable BatteryData2ZeroResponse(byte deviceNumber) => new()
+    private static GivEnergyResponse BatteryData2ZeroResponse(byte deviceNumber) => new()
     {
         SerialNumber = SerialNo,
         WifiAdapter = WifiHost,
@@ -216,7 +215,7 @@ public class InverterDataConverterTests
         return data;
     }
 
-    private static readonly GivEnergyResponseSerializable InverterProperties1UniqueResponse = new()
+    private static readonly GivEnergyResponse InverterProperties1UniqueResponse = new()
     {
         SerialNumber = SerialNo,
         WifiAdapter = WifiHost,
@@ -282,7 +281,7 @@ public class InverterDataConverterTests
         return data;
     }
 
-    private static readonly GivEnergyResponseSerializable InverterProperties2UniqueResponse = new()
+    private static readonly GivEnergyResponse InverterProperties2UniqueResponse = new()
     {
         SerialNumber = SerialNo,
         WifiAdapter = WifiHost,
@@ -352,7 +351,7 @@ public class InverterDataConverterTests
         }
     };
 
-    private static readonly GivEnergyResponseSerializable InverterProperties3UniqueResponse = new()
+    private static readonly GivEnergyResponse InverterProperties3UniqueResponse = new()
     {
         SerialNumber = SerialNo,
         WifiAdapter = WifiHost,
@@ -408,7 +407,7 @@ public class InverterDataConverterTests
         }
     };
 
-    private static readonly GivEnergyResponseSerializable InverterProperties4UniqueResponse = new()
+    private static readonly GivEnergyResponse InverterProperties4UniqueResponse = new()
     {
         SerialNumber = SerialNo,
         WifiAdapter = WifiHost,
@@ -445,7 +444,7 @@ public class InverterDataConverterTests
         return data;
     }
 
-    private static readonly GivEnergyResponseSerializable InverterProperties5UniqueResponse = new()
+    private static readonly GivEnergyResponse InverterProperties5UniqueResponse = new()
     {
         SerialNumber = SerialNo,
         WifiAdapter = WifiHost,
@@ -507,7 +506,7 @@ public class InverterDataConverterTests
         return data;
     }
 
-    private static readonly GivEnergyResponseSerializable InverterProperties6UniqueResponse = new()
+    private static readonly GivEnergyResponse InverterProperties6UniqueResponse = new()
     {
         SerialNumber = SerialNo,
         WifiAdapter = WifiHost,
@@ -577,7 +576,7 @@ public class InverterDataConverterTests
         }
     };
 
-    private static readonly GivEnergyResponseSerializable InverterProperties9UniqueResponse = new()
+    private static readonly GivEnergyResponse InverterProperties9UniqueResponse = new()
     {
         SerialNumber = SerialNo,
         WifiAdapter = WifiHost,
@@ -613,7 +612,7 @@ public class InverterDataConverterTests
         return data;
     }
 
-    private static readonly GivEnergyResponseSerializable InverterProperties10UniqueResponse = new()
+    private static readonly GivEnergyResponse InverterProperties10UniqueResponse = new()
     {
         SerialNumber = SerialNo,
         WifiAdapter = WifiHost,
@@ -636,9 +635,9 @@ public class InverterDataConverterTests
         }
     };
 
-    public static TheoryData<byte, byte, ushort[], int, GivEnergyResponseSerializable> ParseTests()
+    public static TheoryData<byte, byte, ushort[], int, GivEnergyResponse> ParseTests()
     {
-        var data = new TheoryData<byte, byte, ushort[], int, GivEnergyResponseSerializable>
+        var data = new TheoryData<byte, byte, ushort[], int, GivEnergyResponse>
         {
             { InverterDataConverter.InverterId, HoldingRegisters, ZeroData, 0, InverterProperties1ZeroResponse },
             { InverterDataConverter.InverterId, HoldingRegisters, ForInverterProperties1(UniqueData), 0, InverterProperties1UniqueResponse },
@@ -717,23 +716,4 @@ public class InverterDataConverterTests
         ((RegisterData)result.ResponseData).StartAddress.ShouldBe(RegisterDataResponse.StartAddress);
         ((RegisterData)result.ResponseData).RegisterValues.ToArray().ShouldBeEquivalentTo(RegisterDataResponse.RegisterValues.ToArray());
     }
-
-    #region Test Class
-
-    public record GivEnergyResponseSerializable : GivEnergyResponse, IXunitSerializable
-    {
-        public void Deserialize(IXunitSerializationInfo info)
-        {
-        }
-
-        public void Serialize(IXunitSerializationInfo info)
-        {
-            info.AddValue(nameof(SerialNo), SerialNo);
-            info.AddValue(nameof(WifiAdapter), WifiAdapter);
-            info.AddValue(nameof(DeviceNumber), DeviceNumber);
-            info.AddValue(nameof(ResponseDataType), ResponseDataType);
-        }
-    }
-
-    #endregion
 }

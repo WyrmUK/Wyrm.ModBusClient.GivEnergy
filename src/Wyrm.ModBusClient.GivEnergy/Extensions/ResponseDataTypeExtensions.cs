@@ -11,8 +11,8 @@ internal static class ResponseDataTypeExtensions
         {
             ResponseDataType.BatteryData2 when index <= (InverterDataConverter.BatteryMax - InverterDataConverter.BatteryMin) => (byte)(InverterDataConverter.BatteryMin + index),
             ResponseDataType.MeterData2 when index <= (InverterDataConverter.MeterMax - InverterDataConverter.MeterMin) => (byte)(InverterDataConverter.MeterMin + index),
-            ResponseDataType.LowVoltageBCUData2 when index == 0 => (byte)(InverterDataConverter.LowVoltageBCUId + index),
-            >= ResponseDataType.InverterData1 when index == 0 => (byte)(InverterDataConverter.InverterId + index),
+            ResponseDataType.LowVoltageBCUData2 when index == 0 => InverterDataConverter.LowVoltageBCUId,
+            >= ResponseDataType.InverterData1 when index == 0 => InverterDataConverter.InverterId,
             _ => throw new GivEnergyClientException("Unsupported device address.")
         };
 

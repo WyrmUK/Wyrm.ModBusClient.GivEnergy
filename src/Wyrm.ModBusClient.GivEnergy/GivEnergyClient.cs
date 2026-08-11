@@ -82,7 +82,7 @@ internal sealed class GivEnergyClient(
 
             if (inputRegisters)
             {
-                await _modBusClient.ReadHoldingRegistersRequestAsync(startAddress, RegisterBlockCount, cancellationToken);
+                await _modBusClient.ReadInputRegistersRequestAsync(startAddress, RegisterBlockCount, cancellationToken);
             }
             else
             {
@@ -188,9 +188,7 @@ internal sealed class GivEnergyClient(
 
         var checkSum = _checkSumService.CheckSum(responseSpan[unitIdentifierPosition..^2].ToArray());
         if (_logger.IsEnabled(LogLevel.Information))
-        {
             _logger.LogInformation($"GivEnergy Client: Checksum: {responseSpan[responseSpan.Length - 2]} {responseSpan[responseSpan.Length - 1]} = {checkSum[0]} {checkSum[1]}");
-        }
         // TODO: Check CheckSum: everything after length but not checksum itself of course
 
         try

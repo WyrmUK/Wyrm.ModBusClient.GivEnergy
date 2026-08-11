@@ -13,6 +13,7 @@ public class ServiceCollectionExtensionsTests
         var givEnergyServices = new ServiceCollection();
         var services = givEnergyServices.AddGivEnergyClient(ServiceLifetime.Scoped);
 
+        services.ShouldContain(s => s.Lifetime == ServiceLifetime.Singleton && s.ServiceType == typeof(ICheckSumService) && s.ImplementationType == typeof(CheckSumService));
         services.ShouldContain(s => s.Lifetime == ServiceLifetime.Singleton && s.ServiceType == typeof(IInverterDataConverter) && s.ImplementationType == typeof(InverterDataConverter));
         services.ShouldContain(s => s.Lifetime == ServiceLifetime.Scoped && s.ServiceType == typeof(IGivEnergyClient) && s.ImplementationType == typeof(GivEnergyClient));
     }

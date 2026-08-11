@@ -10,6 +10,7 @@ namespace Wyrm.ModBusClient.GivEnergy;
 internal sealed class GivEnergyClient(
     IModBusRegisterClient _modBusClient,
     IInverterDataConverter _inverterDataConverter,
+    ICheckSumService _checkSumService,
     ILogger<GivEnergyClient> _logger) : IGivEnergyClient
 {
     private const ushort ProtocolIdentifier = 0x0001;
@@ -160,7 +161,7 @@ internal sealed class GivEnergyClient(
         var count = command.Count + 2;
         var givCommand = new List<byte>([GivUnitId, GivFuncNo, ..CommandPadding, (byte)(count >> 8), (byte)(count & 0xff)]);
         givCommand.AddRange(command);
-        givCommand.AddRange(CheckSum(command));
+        givCommand.AddRange(_checkSumService.CheckSum(command));
         return givCommand;
     }
 
@@ -185,8 +186,11 @@ internal sealed class GivEnergyClient(
         var numRegisters = (responseSpan[regCountHighPosition] << 8) + responseSpan[regCountLowPosition];
         // TODO: Check number of registers
 
-        var checkSum = CheckSum(responseSpan[unitIdentifierPosition..^2].ToArray());
-        _logger.LogInformation($"GivEnergy Client: Checksum: {responseSpan[responseSpan.Length - 2]} {responseSpan[responseSpan.Length - 1]} = {checkSum[0]} {checkSum[1]}");
+        var checkSum = _checkSumService.CheckSum(responseSpan[unitIdentifierPosition..^2].ToArray());
+        if (_logger.IsEnabled(LogLevel.Information))
+        {
+            _logger.LogInformation($"GivEnergy Client: Checksum: {responseSpan[responseSpan.Length - 2]} {responseSpan[responseSpan.Length - 1]} = {checkSum[0]} {checkSum[1]}");
+        }
         // TODO: Check CheckSum: everything after length but not checksum itself of course
 
         try
@@ -205,23 +209,5 @@ internal sealed class GivEnergyClient(
         {
             throw new GivEnergyClientException($"Error decoding data frame: {string.Join(' ', givResponse.ToArray().Select(b => $"{b:X2}"))}", ex);
         }
-    }
-
-    private static byte[] CheckSum(ICollection<byte> data)
-    {
-        ushort crc = 0xFFFF;
-        foreach (byte b in data)
-        {
-            crc ^= b;
-            for (int i = 0; i < 8; i++)
-            {
-                bool lsbSet = (crc & 0x0001) != 0;
-                crc >>= 1;
-                if (lsbSet)
-                    crc ^= 0xA001;
-            }
-        }
-
-        return [(byte)(crc & 0xff), (byte)(crc >> 8)];
     }
 }

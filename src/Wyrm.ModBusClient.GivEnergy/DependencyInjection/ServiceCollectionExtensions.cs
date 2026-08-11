@@ -18,6 +18,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddGivEnergyClient(this IServiceCollection services, ServiceLifetime serviceLifetime = ServiceLifetime.Singleton)
     {
         services.AddModBusClient(serviceLifetime);
+        services.AddSingleton<ICheckSumService, CheckSumService>();
         services.AddSingleton<IInverterDataConverter, InverterDataConverter>();
         services.Add(new ServiceDescriptor(typeof(IGivEnergyClient), typeof(GivEnergyClient), serviceLifetime));
         return services;

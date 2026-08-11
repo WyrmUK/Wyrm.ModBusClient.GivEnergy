@@ -15,6 +15,7 @@ public class ServiceCollectionExtensionsTests
 
         services.ShouldContain(s => s.Lifetime == ServiceLifetime.Singleton && s.ServiceType == typeof(ICheckSumService) && s.ImplementationType == typeof(CheckSumService));
         services.ShouldContain(s => s.Lifetime == ServiceLifetime.Singleton && s.ServiceType == typeof(IInverterDataConverter) && s.ImplementationType == typeof(InverterDataConverter));
+        services.ShouldContain(s => s.Lifetime == ServiceLifetime.Scoped && s.ServiceType == typeof(IFramerService) && s.ImplementationType == typeof(FramerService));
         services.ShouldContain(s => s.Lifetime == ServiceLifetime.Scoped && s.ServiceType == typeof(IGivEnergyClient) && s.ImplementationType == typeof(GivEnergyClient));
     }
 }

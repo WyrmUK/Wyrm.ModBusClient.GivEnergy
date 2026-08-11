@@ -20,6 +20,7 @@ public static class ServiceCollectionExtensions
         services.AddModBusClient(serviceLifetime);
         services.AddSingleton<ICheckSumService, CheckSumService>();
         services.AddSingleton<IInverterDataConverter, InverterDataConverter>();
+        services.Add(new ServiceDescriptor(typeof(IFramerService), typeof(FramerService), serviceLifetime));
         services.Add(new ServiceDescriptor(typeof(IGivEnergyClient), typeof(GivEnergyClient), serviceLifetime));
         return services;
     }

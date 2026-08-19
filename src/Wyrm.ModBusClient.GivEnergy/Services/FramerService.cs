@@ -34,13 +34,14 @@ internal class FramerService(
         if (responseSpan.Length == 13 && responseSpan[0] == 1 && responseSpan[1] == 1 && responseSpan[^1] == 1)
             throw new GivEnergyClientException("Heartbeat received.", givResponse);
 
-        // TODO: Check for other responses other than registers
+        // TODO: Handle responses other than for registers when other requests are added.
 
-        var numRegisters = (responseSpan[regCountHighPosition] << 8) + responseSpan[regCountLowPosition];
-        // TODO: Check number of registers
+        if (responseSpan.Length < (registerValuesStartPosition + 3))
+            throw new GivEnergyClientException("Insufficient register data.", givResponse);
 
         var checkSum = _checkSumService.CheckSum(responseSpan[unitIdentifierPosition..^2].ToArray());
-        // TODO: Check CheckSum: everything after length but not checksum itself of course
+        if (!checkSum.SequenceEqual(responseSpan[^2..]))
+            throw new GivEnergyClientException("Bad checksum received.", givResponse);
 
         try
         {
@@ -49,7 +50,7 @@ internal class FramerService(
             var response = new List<byte>();
             response.AddRange(givResponse.Slice(unitIdentifierPosition, 2).Span);
             RegisterAddress = (responseSpan[regAddressHighPosition] << 8) + responseSpan[regAddressLowPosition];
-            var bytes = numRegisters * 2;
+            var bytes = ((responseSpan[regCountHighPosition] << 8) + responseSpan[regCountLowPosition]) * 2;
             response.Add((byte)bytes);
             response.AddRange(givResponse.Slice(registerValuesStartPosition, bytes).Span);
             return new ReadOnlyMemory<byte>([.. response]);

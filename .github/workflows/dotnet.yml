@@ -30,12 +30,12 @@ jobs:
     - name: Build
       run: dotnet build --no-restore --configuration Release
     - name: Test
-      run: dotnet test --no-build --configuration Release --verbosity normal --logger trx --results-directory "TestResults-${{ matrix.dotnet-version }}"
+      run: dotnet test --no-build --configuration Release --verbosity normal --report-trx --results-directory "./TestResults-${{ matrix.dotnet-version }}"
     - name: Upload dotnet test results
       uses: actions/upload-artifact@v6
       with:
         name: dotnet-results-${{ matrix.dotnet-version }}
-        path: TestResults-${{ matrix.dotnet-version }}
+        path: ./TestResults-${{ matrix.dotnet-version }}
       if: ${{ always() }}
     - name: Pack
       run: dotnet pack src/Wyrm.ModBusClient.GivEnergy/Wyrm.ModBusClient.GivEnergy.csproj --no-restore --configuration Release --output "Build-${{ matrix.dotnet-version }}"

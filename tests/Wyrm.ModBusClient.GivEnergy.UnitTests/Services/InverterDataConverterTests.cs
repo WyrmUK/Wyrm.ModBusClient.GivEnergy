@@ -160,10 +160,10 @@ public class InverterDataConverterTests
         ResponseDataType = ResponseDataType.MeterData2,
         ResponseData = new MeterData2
         {
-            Phase1 = new MeterPhaseData { PowerFactor = -1M },
-            Phase2 = new MeterPhaseData { PowerFactor = -1M },
-            Phase3 = new MeterPhaseData { PowerFactor = -1M },
-            TotalPowerFactor = -1M
+            Phase1 = new MeterPhaseData { PowerFactor = 0M },
+            Phase2 = new MeterPhaseData { PowerFactor = 0M },
+            Phase3 = new MeterPhaseData { PowerFactor = 0M },
+            TotalPowerFactor = 0M
         }
     };
 
@@ -753,7 +753,7 @@ public class InverterDataConverterTests
                 ActivePower = -4088M,
                 ReactivePower = -4084M,
                 ApparentPower = 820.8M,
-                PowerFactor = -0.1788M
+                PowerFactor = 0.8212M
             },
             Phase2 = new MeterPhaseData
             {
@@ -762,7 +762,7 @@ public class InverterDataConverterTests
                 ActivePower = -4087M,
                 ReactivePower = -4083M,
                 ApparentPower = 820.9M,
-                PowerFactor = -0.1787M
+                PowerFactor = 0.8213M
             },
             Phase3 = new MeterPhaseData
             {
@@ -771,14 +771,14 @@ public class InverterDataConverterTests
                 ActivePower = -4086M,
                 ReactivePower = -4082M,
                 ApparentPower = 821.0M,
-                PowerFactor = -0.1786M
+                PowerFactor = 0.8214M
             },
             LineCurrent = 81.98M,
             TotalCurrent = 81.99M,
             ActiveTotalPower = -4085M,
             ReactiveTotalPower = -4081M,
             ApparentTotalPower = 821.1M,
-            TotalPowerFactor = -0.1785M,
+            TotalPowerFactor = 0.8215M,
             Frequency = 82.16M,
             ActiveImportEnergy = 821.7M,
             ReactiveImportEnergy = 821.8M,

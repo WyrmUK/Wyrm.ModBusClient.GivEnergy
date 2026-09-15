@@ -223,6 +223,23 @@ public class UshortExtensionsTests
         result.ShouldBe(expected);
     }
 
+    public static readonly TheoryData<ushort, decimal> PowerFactorSignedTests = new()
+    {
+        { 0, 0M },
+        { 100, 0.01M },
+        { 32_767, 3.2767M },
+        { 32_768, -3.2768M },
+        { 50_000, -1.5536M },
+        { ushort.MaxValue, -0.0001M }
+    };
+
+    [Theory, MemberData(nameof(PowerFactorSignedTests))]
+    public void ConvertPowerFactorSigned_Should_Return_Correct_Values(ushort value, decimal expected)
+    {
+        var result = value.ConvertPowerFactorSigned();
+        result.ShouldBe(expected);
+    }
+
     public static readonly TheoryData<ushort, string> Hex1Tests = new()
     {
         { 0, "0000" },

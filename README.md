@@ -43,7 +43,7 @@ This requests that the inverter send specific data for a specific sub-device. On
 ### SendReadRegistersAsync
 This is a more flexible version of RequestInverterDataAsync.
 You can specify the device address, whether to read holding registers (Inverter Properties) or input registers (Data), and the start address to read from.
-It will issue a request to read 60 registers from the start address (usually that is itself a mnultiple of 60).
+It will issue a request to read 60 registers from the start address (usually that is itself a multiple of 60).
 
 ### SendCustomPduAsync
 This allows a PDU that isn't a read registers one to be issued.

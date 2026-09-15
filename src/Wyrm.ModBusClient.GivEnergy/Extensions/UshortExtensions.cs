@@ -25,7 +25,8 @@ internal static class UshortExtensions
             (ushort)ChargeStatus.Discharging => ChargeStatus.Discharging,
             _ => ChargeStatus.Unknown
         };
-        public decimal ConvertPowerFactor() => (value / 10_000M) - 1;
+        public decimal ConvertPowerFactor() => (value / 10_000M) - 1M;
+        public decimal ConvertPowerFactorSigned() => value.ConvertSigned() / 10_000M;
         public string ConvertHex() => $"{value:X4}";
         public string ConvertHex(ushort lowValue) => $"{(((uint)value) << 16) + lowValue:X8}";
         public TimeSpan ConvertTimeSpanHours(ushort lowValue)

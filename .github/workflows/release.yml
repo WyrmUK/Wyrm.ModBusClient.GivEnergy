@@ -1,0 +1,38 @@
+# This workflow will release a .NET project
+# For more information see: https://docs.github.com/en/actions/publishing-packages/about-packaging-with-github-actions
+
+name: Wyrm.ModBusClient.GivEnergy Release
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      packages: write
+      contents: read
+      id-token: write
+
+    steps:
+    - uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: '10.0.x'
+    - name: Restore dependencies
+      run: dotnet restore src/Wyrm.ModBusClient.GivEnergy/Wyrm.ModBusClient.GivEnergy.csproj
+    - name: Pack
+      run: dotnet pack src/Wyrm.ModBusClient.GivEnergy/Wyrm.ModBusClient.GivEnergy.csproj --no-restore --configuration Release --output "NugetPackage"
+    - name: Get NuGet Token
+      uses: NuGet/login@v1
+      id: login
+      with:
+        user: ${{ secrets.NUGET_USER }}
+    - name: Push package to nuget
+      run: dotnet nuget push "NugetPackage/*.nupkg" --api-key ${{steps.login.outputs.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json

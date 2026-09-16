@@ -339,7 +339,7 @@ public class GivEnergyClientTests : IDisposable
         BatteryThroughput = 4529.9M,
         PV1InputCurrent = 0M,
         PV2InputCurrent = 0M,
-        GridOutputCurrent = 0.06M,
+        GridOutputCurrent = 0.6M,
         PVGeneratingCapacityTotal = 5616.7M,
         GridFrequency = 49.96M,
         ChargeStatus = 1,

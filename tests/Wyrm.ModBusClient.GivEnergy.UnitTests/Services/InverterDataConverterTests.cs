@@ -831,7 +831,7 @@ public class InverterDataConverterTests
         {
             CellVoltages = Enumerable.Range(0, 16).Select(x => (8192 + x) / 1000M).ToArray(),
             CellsTemperature = Enumerable.Range(0, 4).Select(x => (-4080 + x) / 10M).ToArray(),
-            CellVoltageSum = 821.2M,
+            CellVoltageSum = 8.212M,
             BMSMosfetTemperature = -407.5M,
             OutVoltage = 538320.919M,
             CalibratedCapacity = 5384519.93M,

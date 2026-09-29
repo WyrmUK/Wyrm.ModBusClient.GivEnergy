@@ -406,7 +406,7 @@ public class GivEnergyClientTests : IDisposable
     {
         CellVoltages = [3.25M, 3.253M, 3.254M, 3.254M, 3.259M, 3.254M, 3.256M, 3.256M, 3.259M, 3.259M, 3.261M, 3.261M, 3.261M, 3.261M, 3.262M, 3.262M],
         CellsTemperature = [32.7M, 33.2M, 33.2M, 32.8M],
-        CellVoltageSum = 5212.4M,
+        CellVoltageSum = 52.124M,
         BMSMosfetTemperature = 32.6M,
         OutVoltage = 52.174M,
         CalibratedCapacity = 48.4M,

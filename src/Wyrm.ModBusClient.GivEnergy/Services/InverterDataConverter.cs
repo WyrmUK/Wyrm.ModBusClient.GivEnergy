@@ -661,7 +661,7 @@ internal sealed class InverterDataConverter : IInverterDataConverter
                     data[18].ConvertDeciSigned(),
                     data[19].ConvertDeciSigned()
                 ],
-                CellVoltageSum = data[20].ConvertDeci(),
+                CellVoltageSum = data[20].ConvertMilli(),
                 BMSMosfetTemperature = data[21].ConvertDeciSigned(),
                 OutVoltage = data[22].ConvertMilli(data[23]),
                 CalibratedCapacity = data[24].ConvertCenti(data[25]),
